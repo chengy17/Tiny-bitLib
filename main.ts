@@ -420,11 +420,11 @@ namespace Tinybit {
             control.waitMicros(20);
             pins.digitalWritePin(DigitalPin.P16, 0);
     
-            list[i] = pins.pulseIn(DigitalPin.P15, PulseValue.High, 1000 * 58)/58.3;
+            list[i] = pins.pulseIn(DigitalPin.P15, PulseValue.High, 1000 * 58);
             control.waitMicros(200);
         }
         list.sort();
-        let d = (list[1] + list[2] + list[3] + list[4] + list[5] + list[6] + list[7] + list[8])/8;
+        let d = (list[1] + list[2] + list[3] + list[4] + list[5] + list[6] + list[7] + list[8])/8/58.3;
         return  Math.floor(d);
     }
 
