@@ -410,17 +410,21 @@ namespace Tinybit {
     //% blockGap=10
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
     export function Ultrasonic_CarV2(): number {
-		pins.setPull(DigitalPin.P16, PinPullMode.PullNone);
-		pins.digitalWritePin(DigitalPin.P16, 0);
-		control.waitMicros(4);
-		pins.digitalWritePin(DigitalPin.P16, 1);
-		control.waitMicros(10);
-		pins.digitalWritePin(DigitalPin.P16, 0);
-
-		let d = pins.pulseIn(DigitalPin.P15, PulseValue.High, 500 * 58);
-        return  Math.floor(d / 58);
-
+        let list:Array<number> = [0, 0, 0, 0, 0];
+        for (let i = 0; i < 6; i++)
+        {
+            pins.setPull(DigitalPin.P16, PinPullMode.PullNone);
+            pins.digitalWritePin(DigitalPin.P16, 0);
+            control.waitMicros(4);
+            pins.digitalWritePin(DigitalPin.P16, 1);
+            control.waitMicros(10);
+            pins.digitalWritePin(DigitalPin.P16, 0);
+    
+            list[i] = pins.pulseIn(DigitalPin.P15, PulseValue.High, 500 * 58);
+        }
+        list.sort();
+        let d = (list[1] + list[2] + list[3] + list[4])>>2;
+        return  Math.floor(d / 58.3);
     }
-
 
 }
