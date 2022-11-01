@@ -404,27 +404,27 @@ namespace Tinybit {
 				return  Math.floor(length);
     }
         
-    //% blockId=Tinybit_Ultrasonic_CarV2 block="ultrasonic for V2 return distance(cm)"
+    //% blockId=Tinybit_Ultrasonic_CarV2 block="ultrasonic for V2 return distance(cm)_1"
     //% color="#006400"
     //% weight=87
     //% blockGap=10
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
     export function Ultrasonic_CarV2(): number {
         let list:Array<number> = [0, 0, 0, 0, 0];
+        pins.setPull(DigitalPin.P16, PinPullMode.PullNone);
+        pins.digitalWritePin(DigitalPin.P16, 0);
+        control.waitMicros(4);
         for (let i = 0; i < 6; i++)
         {
-            pins.setPull(DigitalPin.P16, PinPullMode.PullNone);
-            pins.digitalWritePin(DigitalPin.P16, 0);
-            control.waitMicros(4);
             pins.digitalWritePin(DigitalPin.P16, 1);
-            control.waitMicros(12);
+            control.waitMicros(10);
             pins.digitalWritePin(DigitalPin.P16, 0);
     
-            list[i] = pins.pulseIn(DigitalPin.P15, PulseValue.High, 1000 * 58);
-            control.waitMicros(30);
+            list[i] = pins.pulseIn(DigitalPin.P15, PulseValue.High, 1000 * 58)/58.3;
+            control.waitMicros(10);
         }
         list.sort();
-        let d = (list[1] + list[2] + list[3] + list[4])/4/58.3;
+        let d = (list[1] + list[2] + list[3] + list[4])/4;
         return  Math.floor(d);
     }
 
