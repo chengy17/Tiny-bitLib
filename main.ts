@@ -421,10 +421,11 @@ namespace Tinybit {
             pins.digitalWritePin(DigitalPin.P16, 0);
     
             list[i] = pins.pulseIn(DigitalPin.P15, PulseValue.High, 500 * 58);
+            control.waitMicros(10);
         }
         list.sort();
-        let d = (list[1] + list[2] + list[3] + list[4])>>2;
-        return  Math.floor(d / 58.3);
+        let d4 = (list[1] + list[2] + list[3] + list[4])>>2;
+        return  Math.floor(d4 / 58.3);
     }
 
 }
